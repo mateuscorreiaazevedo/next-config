@@ -1,34 +1,93 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+<h1>
+  Configurando Styled-Components
+</h1>
 
 ```bash
-npm run dev
-# or
-yarn dev
+  yarn add styled-components
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+=> adicionando tipagem
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```bash
+  yarn add @types/styled-components -D
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+=> configurando o <b>babel.config.js</b>
 
-## Learn More
+```bash
+  module.exports = {
+    "presets": ["next/babel"],
+    "plugins": [["styled-components", { "ssr": true }]]
+  }
+```
 
-To learn more about Next.js, take a look at the following resources:
+=> configurando arquivo _document.(tsx || jsx)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+  import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from 'next/document'
+  import { ServerStyleSheet } from 'styled-components'
+  import React from 'react'
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+  export default class MyDocument extends Document {
+    static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
+      const sheet = new ServerStyleSheet()
+      const originalRenderPage = ctx.renderPage
 
-## Deploy on Vercel
+      try {
+        ctx.renderPage = () =>
+          originalRenderPage({
+            enhanceApp: (App) => (props) =>
+              sheet.collectStyles(<App {...props} />),
+          })
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+        const initialProps = await Document.getInitialProps(ctx)
+        return {
+          ...initialProps,
+          styles: (
+            <>
+              {initialProps.styles}
+              {sheet.getStyleElement()}
+            </>
+          ),
+        }
+      } finally {
+        sheet.seal()
+      }
+    }
+    render(): JSX.Element {
+      return (
+        <Html lang='pt'>
+          <Head>
+            <meta  charSet='utf-8'/>
+            <style>
+              @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+            </style>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+            <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+          </Head>
+          <body>
+            <Main/>
+            <NextScript/>
+          </body>
+        </Html>
+      )
+    }
+  }
+```
+
+-> configurar o global.ts
+-> configurar theme.ts
+
+configurando o styled.d.ts
+
+```bash
+  import 'styled-components'
+  import theme from './theme'
+
+  export type Theme = typeof theme
+
+  declare module 'styled-components' {
+    export interface DefaultTheme extends Theme {}
+  }
+```
