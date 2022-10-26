@@ -1,12 +1,10 @@
-import Head from 'next/head'
+import { HeadComponent } from '../components/Head'
 import React from 'react'
 
 const Home: React.FC = () => {
   return (
     <>
-      <Head>
-        <title>HomePage</title>
-      </Head>
+      <HeadComponent title="Home" />
       <div>
         <h1>Hello World</h1>
       </div>
