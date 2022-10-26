@@ -6,7 +6,9 @@ const Home: React.FC = () => {
     <>
       <HeadComponent title="Home" />
       <div>
-        <h1>Hello World</h1>
+        <h1 className='text-4xl bg-violet-700 w-full py-4 text-center rounded-full'>
+          Hello World
+        </h1>
       </div>
     </>
   )
