@@ -1,4 +1,4 @@
-import Document, { DocumentContext, DocumentInitialProps } from 'next/document'
+import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 import React from 'react'
 
@@ -27,5 +27,23 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal()
     }
+  }
+  render(): JSX.Element {
+    return (
+      <Html lang='pt'>
+        <Head>
+          <meta  charSet='utf-8'/>
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+          </style>
+
+          <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        </Head>
+        <body>
+          <Main/>
+          <NextScript/>
+        </body>
+      </Html>
+    )
   }
 }

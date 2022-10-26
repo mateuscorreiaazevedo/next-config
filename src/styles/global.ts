@@ -7,8 +7,10 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #121214;
-    color: #e1e1e6;
-
+    background: ${({theme})=>theme.colors.background};
+    color: ${({theme})=>theme.colors.text};
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
   }
 `
