@@ -1,7 +1,11 @@
 module.exports = {
-  semi: false,
-  singleQuote: true,
-  arrowParens: 'avoid',
-  trailingComma: 'none',
-  edOfLine: 'auto'
+  "parser": "typescript",
+  "semi": false,
+  "trailingComma": "none",
+  "singleQuote": true,
+  "printWidth": 120,
+  "tabWidth": 2,
+  "spaceBeforeFunctionParen": true,
+  "objectShortHand": true,
+  "semicolons": false
 }
