@@ -48,17 +48,21 @@ yarn eslint --init
  
 
 <h3>
-Criar arquivo <i>prettier.config.js</i> e copiar configurações abaixo:
+Criar arquivo <i>.prettierrc</i> e copiar configurações abaixo:
 </h3>
 
-```bash
-  module.exports = {
-    semi: false,
-    singleQuote: true,
-    arrowParens: 'avoid',
-    trailingComma: 'none',
-    endOfLine: 'auto'
-  }
+```bash 
+{
+  "parser": "typescript",
+  "semi": false,
+  "trailingComma": "none",
+  "singleQuote": true,
+  "printWidth": 120,
+  "tabWidth": 2,
+  "spaceBeforeFunctionParen": true,
+  "objectShortHand": true,
+  "semicolons": false
+}
 ```
 
 <p>
@@ -67,3 +71,22 @@ Criar arquivo <i>prettier.config.js</i> e copiar configurações abaixo:
 <p>
   botão direito e clicar em 'Generate .editorconfig'; adicionar propriedade 'end_of_line = lf'; alterar ambos falses para true.
 </p>
+
+adicionar pasta .vscode/settings.json e colar abaixo
+```bash
+{
+  "window.zoomLevel": 0,
+  "prettier.configPath": "./.prettierrc",
+  "cSpell.words": [
+    "camelcase",
+    "commitlint"
+  ],
+  "editor.inlineSuggest.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "search.showLineNumbers": false,
+  "workbench.editor.enablePreview": false,
+  "workbench.list.openMode": "doubleClick",
+}
+```
