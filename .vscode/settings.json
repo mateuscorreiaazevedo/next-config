@@ -11,5 +11,5 @@
   },
   "search.showLineNumbers": false,
   "workbench.editor.enablePreview": false,
-  "workbench.list.openMode": "doubleClick",
+  "workbench.list.openMode": "singleClick",
 }
